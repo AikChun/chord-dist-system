@@ -21,7 +21,7 @@ public class ChordSystem {
 	 * function to insert a node into the system.
 	 * @param node_position - integer value of the node's position
 	 */
-	public void insertNode(int node_position) {
+	public void addPeer(int node_position) {
 		this.map.put(node_position , new Node(node_position, this.m));
 	}
 
@@ -46,13 +46,74 @@ public class ChordSystem {
 	 * main function
 	 */
 	public static void main(String []args){
-		System.out.println("Starting Chord System...");
-		System.out.print("Enter the value for m: ");
-		Scanner input = new Scanner (System.in);
-		int m = input.nextInt();
-		ChordSystem system = new ChordSystem(m);
-		// Now you can insert nodes using system.insertNode()
-		// print attributes of all nodes using system.printNodes()
+		if(args.length < 1) {
+	 		System.out.println("Please specify filename.");	
+		} else if (args.length >1){
+			System.out.println("too many argument. Please specify one filename.");	
+		} else {
+			read(args[1]);
+		}
+	}
+	private static void read(String filename) {
+		try {
+			File file = new File(filename);
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			String line = "";
+			while((line = br.readLine()) != null) {
+				String []incoming_line = line.split("\\s+");
+				interpretCommand(incoming_line);
+			}
+		} catch (FileNotFoundException e) {
+		
+		} catch (IOException ioe) {
+		
+		}
+	}
+	private static void interpretCommand(String []command) {
+		boolean error_in_command = false;
+		int input_value = 0;
+		if(command.length < 2) {
+		error_in_command = true;
+		}
+
+		try {
+			input_value = Integer.parseInt(command[1]);
+		} catch (NumberFormatException e){
+			error_in_command = true;	
+		}
+		if(!error_in_command) { // if there are no errors in received commands so far
+			if (command[0].equals("init")) {
+				if(command.length == 2) {
+					//ChordSystem.init(Integer.parseInt(command[1]));
+				}
+			} else if (command[0].equals("addPeer")) {
+				//addPeer(id);
+
+			} else if(command[0].equals("insert")) {
+				if(command.length > 2) {
+					StringBuilder sb = new StringBuilder();
+					for(int i=2;i<command.length;i++){
+						sb.append(command[i]);
+					}
+					String node_name = sb.toString();
+					//insert(id, node_name);
+				} 
+			} else if(command[0].equals("removepeer")) {
+				if(command.length ==  2) {
+					//removePeer(input_value);
+				}	
+			} else if(command[0].equals("print")) {
+				if(command.length ==  2) {
+					//printNode(input_value);
+				}	
+			
+			} else if(command[0].equals("delete")) {
+				if(command.length ==  2) {
+					//deleteNode(input_value);
+				}	
+			
+			}
+		}
 	}
 }
 
