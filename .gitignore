@@ -1,4 +1,6 @@
 # gitignore used to untrack the following file types
 *.class
 *.swp
+*.dat
+# ignore all dir
 */

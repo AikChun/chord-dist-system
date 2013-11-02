@@ -2,9 +2,9 @@ import java.util.*;
 import java.io.*;
 
 /**
- * ChordSystem class
+ * CHORD class
  */
-public class ChordSystem {
+public class CHORD {
 	private LinkedHashMap <Integer, Node> map;
 	private int m = 0;
 	
@@ -12,7 +12,7 @@ public class ChordSystem {
 	 * Constructor 
 	 * @param m  -  The M value of chord system
 	 */
-	public ChordSystem (int m) {
+	public CHORD (int m) {
 		this.map = new LinkedHashMap <Integer, Node> ();
 		this.m = m;
 	} 
@@ -51,7 +51,7 @@ public class ChordSystem {
 		} else if (args.length >1){
 			System.out.println("too many argument. Please specify one filename.");	
 		} else {
-			read(args[1]);
+			read(args[0]);
 		}
 	}
 	private static void read(String filename) {
@@ -61,6 +61,7 @@ public class ChordSystem {
 			String line = "";
 			while((line = br.readLine()) != null) {
 				String []incoming_line = line.split("\\s+");
+				//System.out.println(line);
 				interpretCommand(incoming_line);
 			}
 		} catch (FileNotFoundException e) {
@@ -72,8 +73,9 @@ public class ChordSystem {
 	private static void interpretCommand(String []command) {
 		boolean error_in_command = false;
 		int input_value = 0;
+
 		if(command.length < 2) {
-		error_in_command = true;
+			error_in_command = true;
 		}
 
 		try {
@@ -81,40 +83,58 @@ public class ChordSystem {
 		} catch (NumberFormatException e){
 			error_in_command = true;	
 		}
+
 		if(!error_in_command) { // if there are no errors in received commands so far
-			if (command[0].equals("init")) {
+			if (command[0].equalsIgnoreCase("init")) {
 				if(command.length == 2) {
-					//ChordSystem.init(Integer.parseInt(command[1]));
+					System.out.println("Command: " + command[0]);
+					System.out.println("value: " + input_value);
+					//CHORD.init(Integer.parseInt(command[1]));
 				}
-			} else if (command[0].equals("addPeer")) {
+			} else if (command[0].equalsIgnoreCase("addpeer")) {
+				System.out.println("Command: " + command[0]);
+				System.out.println("value: " + input_value);
 				//addPeer(id);
 
-			} else if(command[0].equals("insert")) {
+			} else if(command[0].equalsIgnoreCase("insert")) {
 				if(command.length > 2) {
 					StringBuilder sb = new StringBuilder();
 					for(int i=2;i<command.length;i++){
 						sb.append(command[i]);
+						if(i!=command.length-1) {
+							sb.append(" ");
+						}
 					}
 					String node_name = sb.toString();
+
+					System.out.println("Command: " + command[0]);
+					System.out.println("value :" + input_value);
+					System.out.println("data key: " + node_name);
 					//insert(id, node_name);
 				} 
-			} else if(command[0].equals("removepeer")) {
+			} else if(command[0].equalsIgnoreCase("removepeer")) {
 				if(command.length ==  2) {
+					System.out.println("Command: " + command[0]);
+					System.out.println("value: " + input_value);
 					//removePeer(input_value);
 				}	
-			} else if(command[0].equals("print")) {
+			} else if(command[0].equalsIgnoreCase("print")) {
 				if(command.length ==  2) {
+					System.out.println("Command: " + command[0]);
+					System.out.println("value: " + input_value);
 					//printNode(input_value);
 				}	
 			
-			} else if(command[0].equals("delete")) {
+			} else if(command[0].equalsIgnoreCase("delete")) {
 				if(command.length ==  2) {
+					System.out.println("Command: " + command[0]);
+					System.out.println("value: " + input_value);
 					//deleteNode(input_value);
 				}	
 			
 			}
 		}
-	}
+	} //end of interpretCommand()
 }
 
 /**
