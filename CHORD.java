@@ -150,6 +150,11 @@ public class CHORD {
 			read(args[0], chord);
 		}
 	}
+	/**
+	 * read file function.
+	 * @param filename String of the filename that is taken from the main function.
+	 * @param chord an instaniation from the main function. default value is null
+	 */
 	public static void read(String filename, CHORD chord) {
 		try {
 			File file = new File(filename);
@@ -178,6 +183,11 @@ public class CHORD {
 		
 		}
 	}
+	/**
+	 * checks for errors in the command
+	 * @param command String array that contains the function in the first index and an int in the second index
+	 * @return boolean false if there's no error.
+	 */
 	public static boolean checkCommandForError(String []command) {
 		boolean error = false;
 		try {
