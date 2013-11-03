@@ -18,6 +18,13 @@ public class CHORD {
 	} 
 
 	/**
+	 *
+	 *
+	 */
+	public void init(int m) {
+		
+	}
+	/**
 	 * function to insert a node into the system.
 	 * @param node_position - integer value of the node's position
 	 */
