@@ -66,6 +66,10 @@ public class CHORD {
 		}
 	}
 
+	/**
+	 * Function to determine the commands to execute.
+	 * @param command - String array that contains the name of the command on the first index and an int value to be parsed in the second index
+	 */
 	public void interpretCommand(String []command) {
 		boolean error_in_command = false;
 		int input_value = 0;
