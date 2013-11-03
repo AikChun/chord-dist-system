@@ -5,31 +5,47 @@ import java.io.*;
  * CHORD class
  */
 public class CHORD {
-	private LinkedHashMap <Integer, Node> map;
-	private int m = 0;
+	private final static student_name = "Sim Aik Chun";
+	private final static student_number = "4234716";
+	private static CHORD instance = null;
+	private LinkedHashMap <Integer, NODE> map;
+	private int n = 0; // size of chord (number of nodes)
+	private int k = 0; // size of finger table
 	
 	/**
 	 * Constructor 
 	 * @param m  -  The M value of chord system
 	 */
-	public CHORD (int m) {
-		this.map = new LinkedHashMap <Integer, Node> ();
-		this.m = m;
+	public CHORD (int n) {
+		this.map = new LinkedHashMap <Integer, NODE> ();
+		this.n = n;
+		this.k =  (int) (Math.log(n)/ Math.log(2));
 	} 
-
+	
 	/**
-	 *
-	 *
+	 * To create a CHORD or, if there's already a CHORD created before, create a brand new CHORD
 	 */
-	public void init(int m) {
-		
+	public void init(int n) {
+		if(instance == null) {
+			System.out.println("==================================================");
+			System.out.println("CSCI319 Assignment 2 CHORD system");
+			System.out.println("Done by: " + student_name);
+			System.out.println("Student Number: " + student_number);
+			System.out.println("==================================================");
+			// instaniation new CHORD instance.
+			instance = new CHORD(n);
+
+		} else {
+			System.out.println("Creating new CHORD...");
+			instance = new CHORD(n);
+		}
 	}
 	/**
 	 * function to insert a node into the system.
 	 * @param node_position - integer value of the node's position
 	 */
 	public void addPeer(int node_position) {
-		this.map.put(node_position , new Node(node_position, this.m));
+		this.map.put(node_position , new NODE(node_position, this.m));
 	}
 
 	/**
@@ -37,9 +53,9 @@ public class CHORD {
 	 */
 	public void printNodes() {
 		// cycle through nodes
-		for(Map.Entry <Integer, Node> i: map.entrySet()) {
+		for(Map.Entry <Integer, NODE> i: map.entrySet()) {
 			int node_key = i.getKey();
-			Node node_value = i.getValue();
+			NODE node_value = i.getValue();
 			// print out next_node
 			System.out.println("================================================================================");
 			System.out.println("Node index: " + node_key);
@@ -142,96 +158,5 @@ public class CHORD {
 			}
 		}
 	} //end of interpretCommand()
-}
-
-/**
- * Node Class
- */
-class Node {
-	private int node_position = 0;
-	private ArrayList <Finger> finger_table;
-
-	/**
-	 * Constructor specifying node position
-	 * @param node_position - integer value of the node's position.
-	 * @param m - integer value of the 'm' value of the system
-	 */	
-	public Node(int node_position, int m){
-		this.finger_table = new ArrayList <Finger> ();	
-		// populate finger_table once the node is created.
-		this.populateFingerTable(m);
-	}
-
-	/**
-	 * populate the finger table.
-	 * @param m - Integer value of 'm' of the system.
-	 */
-	public void populateFingerTable(int m) {
-		for(int i=1;i<=m;i++) {
-			this.finger_table.add(new Finger(i));
-		}
-	}
-
-	/**
-	 * Prints out all Fingers "next_node" column.
-	 */
-	public void printNextNodes() {
-		for(int i=0;i<this.finger_table.size(); i++) {
-			Finger temp = this.finger_table.get(i);
-			System.out.println("Node :" + temp.getIndex() + "\n" + "next_node: " + temp.getNextNode());
-		}
-	}
-
-	/**
-	 * Function to call updateSuccessor() in all the Fingers`
-	 */	
-	public void updateFingerTable(){
-		
-	}
-
-	/**
-	 * sub-class Finger
-	 */
-	class Finger {
-		private int index = 0;
-		private int next_node = 0; // the supposed next node to go to.
-		private int successor = 0;
-		private String data_key = "";
-
-		/**
-		 * Constructor specifying index position
-		 * @param i - Integer value of the finger's index.
-		 */
-		public Finger (int i){
-			this.index = i;
-			this.generateNextNodes();
-		}
-
-		/**
-		 * Function to calculate the supposed next node to go.
-		 */
-		private void generateNextNodes(){
-			this.next_node = index + ((int) Math.pow(2, index-1));
-		}
-
-		/**
-		 * This function update the successor of the finger
-		 */
-		public void updateSuccessor(){
-			
-		}
-
-		public int getIndex() {
-			return this.index;
-		}
-
-		public int getNextNode() {
-			return this.next_node;
-		}
-
-		public String getDatakey() {
-			return this.data_key;
-		}
-	}
 }
 

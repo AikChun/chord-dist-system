@@ -1,7 +1,9 @@
+import java.util.*;
+import java.io.*;
 /**
- * Node Class
+ * NODE Class
  */
-class Node {
+public class NODE {
 	private int node_position = 0;
 	private ArrayList <Finger> finger_table;
 
@@ -10,7 +12,7 @@ class Node {
 	 * @param node_position - integer value of the node's position.
 	 * @param m - integer value of the 'm' value of the system
 	 */	
-	public Node(int node_position, int m){
+	public NODE(int node_position, int m){
 		this.finger_table = new ArrayList <Finger> ();	
 		// populate finger_table once the node is created.
 		this.populateFingerTable(m);
